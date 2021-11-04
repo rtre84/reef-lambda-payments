@@ -1,5 +1,5 @@
 # Reef-Lambda-Payments
-Unofficial Serverless Payment API for the Reef blockchain. This repo was set-up for the Gitcoin Defi Hackathon.
+Unofficial Serverless Payment API for the Reef blockchain. This repo was set-up as part of the Gitcoin Defi Hackathon.
 
 > ### AWS DynamoDB + Lambda codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld-example-apps) spec and API.
 
