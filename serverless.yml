@@ -1,4 +1,4 @@
-service: realworld
+service: reef-payment-lambda-api
 
 provider:
   name: aws
@@ -23,166 +23,70 @@ package:
     - coverage/**
     - lambda-node-logo.png
     - .nyc_output/**
+    - node_modules/**
 
 plugins:
   - serverless-dynamodb-local
   - serverless-offline
 
 functions:
+#
+#  ## Users API
+#  createUser:
+#    handler: src/User.create
+#    events:
+#      - http:
+#          method: POST
+#          path: /api/users
+#          cors: true
+#
+#  loginUser:
+#    handler: src/User.login
+#    events:
+#      - http:
+#          method: POST
+#          path: /api/users/login
+#          cors: true
+#
+#  getUser:
+#    handler: src/User.get
+#    events:
+#      - http:
+#          method: GET
+#          path: /api/user
+#          cors: true
+#
+#  updateUser:
+#    handler: src/User.update
+#    events:
+#      - http:
+#          method: PUT
+#          path: /api/user
+#          cors: true
+#
+#  getProfile:
+#    handler: src/User.getProfile
+#    events:
+#      - http:
+#          method: GET
+#          path: /api/profiles/{username}
+#          cors: true
 
-  ## Users API
-  createUser:
-    handler: src/User.create
-    events:
-      - http:
-          method: POST
-          path: /api/users
-          cors: true
-
-  loginUser:
-    handler: src/User.login
-    events:
-      - http:
-          method: POST
-          path: /api/users/login
-          cors: true
-
-  getUser:
-    handler: src/User.get
-    events:
-      - http:
-          method: GET
-          path: /api/user
-          cors: true
-
-  updateUser:
-    handler: src/User.update
-    events:
-      - http:
-          method: PUT
-          path: /api/user
-          cors: true
-
-  getProfile:
-    handler: src/User.getProfile
-    events:
-      - http:
-          method: GET
-          path: /api/profiles/{username}
-          cors: true
-
-  followUser:
-    handler: src/User.follow
-    events:
-      - http:
-          method: POST
-          path: /api/profiles/{username}/follow
-          cors: true
-
-  unfollowUser:
-    handler: src/User.follow
-    events:
-      - http:
-          method: DELETE
-          path: /api/profiles/{username}/follow
-          cors: true
-
-  ## Articles API
-  createArticle:
-    handler: src/Article.create
-    events:
-      - http:
-          method: POST
-          path: /api/articles
-          cors: true
-
-  getArticle:
-    handler: src/Article.get
+  ## Reef Payments API
+  processPayment:
+    handler: src/Payment.processPayment
     events:
       - http:
           method: GET
-          path: /api/articles/{slug}
-          cors: true
+          path: /api/processPayment
+          cors: false
 
-  udpateArticle:
-    handler: src/Article.update
-    events:
-      - http:
-          method: PUT
-          path: /api/articles/{slug}
-          cors: true
-
-  deleteArticle:
-    handler: src/Article.delete
-    events:
-      - http:
-          method: DELETE
-          path: /api/articles/{slug}
-          cors: true
-
-  favoriteArticle:
-    handler: src/Article.favorite
-    events:
-      - http:
-          method: POST
-          path: /api/articles/{slug}/favorite
-          cors: true
-
-  unfavoriteArticle:
-    handler: src/Article.favorite
-    events:
-      - http:
-          method: DELETE
-          path: /api/articles/{slug}/favorite
-          cors: true
-
-  listArticles:
-    handler: src/Article.list
+  getPayments:
+    handler: src/Payment.get
     events:
       - http:
           method: GET
-          path: /api/articles
-          cors: true
-
-  getArticlesFeed:
-    handler: src/Article.getFeed
-    events:
-      - http:
-          method: GET
-          path: /api/articles/feed
-          cors: true
-
-  getTags:
-    handler: src/Article.getTags
-    events:
-      - http:
-          method: GET
-          path: /api/tags
-          cors: true
-
-  ## Comments API
-  createComment:
-    handler: src/Comment.create
-    events:
-      - http:
-          method: POST
-          path: /api/articles/{slug}/comments
-          cors: true
-
-  getComments:
-    handler: src/Comment.get
-    events:
-      - http:
-          method: GET
-          path: /api/articles/{slug}/comments
-          cors: true
-
-  deleteComment:
-    handler: src/Comment.delete
-    events:
-      - http:
-          method: DELETE
-          path: /api/articles/{slug}/comments/{id}
+          path: /api/articles/{slug}/Payments
           cors: true
 
   ## Utils API
@@ -194,10 +98,18 @@ functions:
           path: /api/ping
           cors: true
 
-  purgeData:
-    handler: src/Util.purgeData
+  createRandomWallet:
+    handler: src/Util.createRandomWallet
     events:
-      - http: DELETE /api/__TESTUTILS__/purge
+      - http:
+          method: GET
+          path: /api/createRandomWallet
+          cors: false
+#
+#  purgeData:
+#    handler: src/Util.purgeData
+#    events:
+#      - http: DELETE /api/__TESTUTILS__/purge
 
 resources:
   Resources:
@@ -272,7 +184,7 @@ resources:
               ReadCapacityUnits: 1
               WriteCapacityUnits: 1
 
-    CommentsDynamoDBTable:
+    PaymentsDynamoDBTable:
       Type: 'AWS::DynamoDB::Table'
       DeletionPolicy: Retain
       Properties:
@@ -290,7 +202,7 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
-        TableName: realworld-${self:provider.environment.DYNAMODB_NAMESPACE}-comments
+        TableName: realworld-${self:provider.environment.DYNAMODB_NAMESPACE}-Payments
         GlobalSecondaryIndexes:
           -
             IndexName: article

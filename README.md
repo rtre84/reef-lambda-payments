@@ -3,14 +3,27 @@ Unofficial Serverless Payment API for the Reef blockchain. This repo was set-up 
 
 > ### AWS DynamoDB + Lambda codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld-example-apps) spec and API.
 
+This codebase contains code written for the below hackathon bounty.
+https://gitcoin.co/issue/reef-defi/reef-finance-bounties/1/100026837
 
-### [Demo](https://anishkny.github.io/realworld-dynamodb-lambda/test-output/network.html)
+### There are 3 repos that contain relevant code.
+Storefront - https://github.com/rtre84/reef-payments-store  
+Products service - https://github.com/rtre84/reef-products-service  
+AWS Lambda Payment API - https://github.com/rtre84/reef-lambda-payments   
 
-This codebase was created to demonstrate a fully fledged fullstack application built with **AWS DynamoDB + Lambda** including CRUD operations, authentication, routing, pagination, and more.
+### To run the demo locally:  
+Git clone ```https://github.com/rtre84/reef-payments-store```  
+Run ```yarn install```  
+Run ```yarn dev```  
 
-We've gone to great lengths to adhere to the **AWS DynamoDB + Lambda** community styleguides & best practices.
+**NOTE:**
+The Polkadot / Reef finance specific code isn't completely functional in it's current
+state. All code is deployable and accessible locally. Unresolved bugs in the product and 
+lambda service blocked the service from working end to end correctly.
 
-For more information on how to this works with other frontends/backends, head over to the [RealWorld](https://github.com/gothinkster/realworld) repo.
+Storefront Demo: https://eager-jang-5dfc4d.netlify.app/  
+Product Service: https://reef-frontend-product-service.herokuapp.com/health  
+Lambda API Gateway Service: https://1qnnysgv5d.execute-api.us-east-1.amazonaws.com/dev/   
 
 # Getting started
 
@@ -18,8 +31,8 @@ For more information on how to this works with other frontends/backends, head ov
 
 Clone this repo, and cd into it:
 ```
-git clone https://github.com/anishkny/realworld-dynamodb-lambda
-cd realworld-dynamodb-lambda
+git clone https://github.com/rtre84/reef-lambda-payments
+cd reef-lambda-payments
 ```
 
 ## Starting the local server
@@ -45,43 +58,11 @@ npm test
 ```
 See sample test run [log](https://travis-ci.org/anishkny/realworld-dynamodb-lambda) and [network traffic](https://anishkny.github.io/realworld-dynamodb-lambda/test-output/network.html).
 
-# How it works
-
-## Overview
-This repo uses [Serverless Framework](https://serverless.com) to describe, test and deploy the [RealWorld REST API](https://github.com/gothinkster/realworld/blob/master/api/README.md#endpoints) to [AWS Lambda](https://aws.amazon.com/lambda/). AWS Lambda provides "serverless" cloud functions as a service. [AWS API Gateway](https://aws.amazon.com/api-gateway/) is used to expose the deployed Lambda functions as a HTTP REST API.
-
-![Architecture Diagram](architecture.svg)
-
 ## API
-The API is described in the [`serverless.yml`](serverless.yml) file. For example the following snippet instructs AWS Lambda to execute the `create` method in [`src/User.js`](src/User.js) whenever a `POST` method is called on `/api/users`:
-```
-functions:
-
-  ## Users API
-  createUser:
-    handler: src/User.create
-    events:
-      - http:
-          method: POST
-          path: /api/users
-          cors: true
-
-  ...
-```
+The API is described in the [`serverless.yml`](serverless.yml) file. 
 
 ## Storage
-For storage, [AWS DynamoDB](https://aws.amazon.com/dynamodb/) a managed serverless NoSQL database is used. Tables are created to store `users`, `articles` and `comments` also described in `serverless.yml` file. For example:
-```
-resources:
-  Resources:
-
-    UsersDynamoDBTable:
-      Type: 'AWS::DynamoDB::Table'
-      DeletionPolicy: Retain
-      Properties:
-        AttributeDefinitions:
-        ...
-```
+For storage, [AWS DynamoDB](https://aws.amazon.com/dynamodb/) a managed serverless NoSQL database is used. 
 
 ## Deployment
 To deploy the code to AWS, simply execute:

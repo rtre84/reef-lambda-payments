@@ -1,3 +1,7 @@
+const { Keyring } = require("@polkadot/api");
+const { mnemonicGenerate } = require('@polkadot/util-crypto');
+const AWS = require('aws-sdk');
+
 /* istanbul ignore next */
 if (!process.env.AWS_REGION) {
   process.env.AWS_REGION = 'us-east-1';
@@ -7,8 +11,6 @@ if (!process.env.AWS_REGION) {
 if (!process.env.DYNAMODB_NAMESPACE) {
   process.env.DYNAMODB_NAMESPACE = 'dev';
 }
-
-const AWS = require('aws-sdk');
 
 // In offline mode, use DynamoDB local server
 let DocumentClient = null;
@@ -48,6 +50,8 @@ module.exports = {
   tokenSecret: /* istanbul ignore next */ process.env.SECRET ?
     process.env.SECRET : '3ee058420bc2',
   DocumentClient,
+
+  createRandomWallet
 
 };
 
@@ -89,4 +93,8 @@ async function purgeTable(aTable, aKeyName) /* istanbul ignore next */ {
     deletePromises.push(DocumentClient.delete(recordToDelete).promise());
   }
   await Promise.all(deletePromises);
+}
+
+function createRandomWallet() {
+  return new Keyring({ type: "sr25519" }).addFromMnemonic(mnemonicGenerate());
 }

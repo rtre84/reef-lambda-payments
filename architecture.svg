@@ -95,10 +95,10 @@
       <switch>
         <foreignObject style="overflow:visible;" pointer-events="all" width="75" height="14" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
           <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 14px; font-family: Helvetica; color: rgb(77, 77, 77); line-height: 1.2; vertical-align: top; white-space: nowrap; text-align: center;">
-            <div xmlns="http://www.w3.org/1999/xhtml" style="display:inline-block;text-align:inherit;text-decoration:inherit;">Comment.js</div>
+            <div xmlns="http://www.w3.org/1999/xhtml" style="display:inline-block;text-align:inherit;text-decoration:inherit;">Payment.js</div>
           </div>
         </foreignObject>
-        <text x="38" y="14" fill="#4D4D4D" text-anchor="middle" font-size="14px" font-family="Helvetica">Comment.js</text>
+        <text x="38" y="14" fill="#4D4D4D" text-anchor="middle" font-size="14px" font-family="Helvetica">Payment.js</text>
       </switch>
     </g><path
       d="M 589.8 528.01 L 595.79 527.2 L 603.68 536.9 L 603.68 525.45 L 589.8 521.79 Z M 589.8 558.28 L 603.68 554.53 L 603.68 543.25 L 595.79 552.88 L 589.8 552.05 Z M 579.94 580 L 570.09 575.09 L 570.09 568.61 L 562.37 571.17 L 556.28 568.1 L 556.28 564.35 L 551.15 565.57 L 547 563.43 L 547 516.62 L 551.15 514.47 L 556.28 515.69 L 556.28 511.96 L 562.37 508.83 L 570.09 511.32 L 570.09 504.95 L 579.94 500 L 612.9 516.61 L 612.9 563.33 Z"
