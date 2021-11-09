@@ -16,7 +16,7 @@ async function createWallet() {
     const keyring = new Keyring({type: "sr25519"});
     // const seed = mnemonicGenerate();
     // eslint-disable-next-line max-len
-    const seed = "group cram clay fiction confirm sand banner life elbow witness hollow autumn";
+    const seed = "actress lonely proof wood smoke fiber undo sick broccoli struggle rabbit abandon";
 
     return keyring.addFromMnemonic(seed);
 }
